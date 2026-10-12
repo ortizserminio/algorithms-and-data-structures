@@ -53,7 +53,7 @@ int main() {
     start = clock();
     sum2 = max_subarray_linear(v, n, i2, j2);
     end = clock();
-    ms = (end - start) / CLOCKS_PER_SEC * 1000;
+    ms = (double)(end - start) / CLOCKS_PER_SEC * 1000;
     std::cout << "O(n)   sum: " << sum2 << "  positions: " << i2 << " .. "
               << j2 << "  time: " << ms << " ms" << std::endl;
 
