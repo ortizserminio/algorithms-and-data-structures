@@ -1,4 +1,5 @@
 # Algorithms and Data Structures
+n**English** · [Español](README.es.md)
 
 [![CI](https://github.com/ortizserminio/algorithms-and-data-structures/actions/workflows/ci.yml/badge.svg)](https://github.com/ortizserminio/algorithms-and-data-structures/actions/workflows/ci.yml)
 

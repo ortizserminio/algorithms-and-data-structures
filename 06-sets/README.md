@@ -1,4 +1,5 @@
 # 06 · Sets as bit vectors
+n**English** · [Español](README.es.md)
 
 Language: **Python 3.10+**. Source: *Estructuras de Datos*, topic 4 ("TAD Conjunto") exercise.
 

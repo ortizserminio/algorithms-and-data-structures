@@ -1,4 +1,5 @@
 # 08 · Graphs: Floyd-Warshall, Warshall and Kruskal with Union-Find
+n**English** · [Español](README.es.md)
 
 Language: **Python 3.10+**. Source: *Estructuras de Datos*, practical 3 (2024/25: Kruskal; 2025/26: Floyd, team project).
 

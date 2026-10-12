@@ -1,4 +1,5 @@
 # 07 · Trees: binary search tree and AVL tree
+n**English** · [Español](README.es.md)
 
 Language: **Python 3.10+**. Source: *Estructuras de Datos*, practical 2 (2024/25: BST; 2025/26: AVL).
 
