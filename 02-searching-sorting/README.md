@@ -1,5 +1,6 @@
 # 02 · Searching and sorting: counting occurrences, insertion sort
-n**English** · [Español](README.es.md)
+
+**English** · [Español](README.es.md)
 
 Language: **C++14**. Source: *Metodología de la Programación Avanzada*, practicals 1 and 2.
 

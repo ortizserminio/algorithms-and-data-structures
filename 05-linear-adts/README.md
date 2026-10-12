@@ -1,5 +1,6 @@
 # 05 · Linear ADTs: stacks, queues and lists
-n**English** · [Español](README.es.md)
+
+**English** · [Español](README.es.md)
 
 Language: **Python 3.10+**. Source: *Estructuras de Datos*, practical 1 (2024/25 and 2025/26) and topic 3 exercises.
 
