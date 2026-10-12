@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    name: Python tests (${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest
+
+  cpp:
+    name: C++ tests (${{ matrix.compiler }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        compiler: [g++, clang++]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and run tests
+        run: make test CXX=${{ matrix.compiler }} CXXFLAGS="-std=c++14 -Wall -Wextra -pedantic -Werror -O2 -Icommon -fsanitize=address,undefined"
+      - name: Build interactive demos
+        run: make demos CXX=${{ matrix.compiler }}
