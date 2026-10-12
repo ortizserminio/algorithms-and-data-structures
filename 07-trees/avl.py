@@ -40,7 +40,7 @@ class AVLTree:
 
     def delete(self, key: int) -> bool:
         """Delete ``key``; return True if it was in the tree."""
-        self.root, deleted = self.eliminar_recursivo(key, self.root)  # type: ignore[attr-defined]
+        self.root, deleted = self._delete(key, self.root)
         return deleted
 
     def size(self) -> int:
@@ -62,7 +62,7 @@ class AVLTree:
         return keys
 
     # ------------------------------------------------------- recursive helpers
-    def _insert(self, node: AVLNode, current: Optional[AVLNode]):
+    def _insert(self, node: AVLNode, current: Optional[AVLNode]) -> AVLNode:
         if current is None:
             return node
         if node.key > current.key:
@@ -70,7 +70,7 @@ class AVLTree:
         elif node.key < current.key:
             current.left = self._insert(node, current.left)
         else:
-            return "The node is already in the tree"
+            return current  # duplicate key: the tree is unchanged
 
         self._update_height(current)
         return self._rebalance(self._balance_factor(current), current)
@@ -84,13 +84,16 @@ class AVLTree:
             return self._contains(key, current.left)
         return self._contains(key, current.right)
 
-    def elimnar_recursivo(self, key: int, current: Optional[AVLNode]):
+    def _delete(
+        self, key: int, current: Optional[AVLNode]
+    ) -> tuple[Optional[AVLNode], bool]:
+        """Delete ``key`` from the subtree; return (new subtree root, deleted)."""
         if current is None:
             return None, False
         if key > current.key:
-            current.right, deleted = self.eliminar_recursivo(key, current.right)  # type: ignore[attr-defined]
+            current.right, deleted = self._delete(key, current.right)
         elif key < current.key:
-            current.left, deleted = self.eliminar_recursivo(key, current.left)  # type: ignore[attr-defined]
+            current.left, deleted = self._delete(key, current.left)
         else:
             # Three cases: leaf, one child, two children.
             if current.left is None and current.right is None:
@@ -103,10 +106,10 @@ class AVLTree:
                 # Copy the in-order successor here and delete it on the right.
                 successor = self._min_node(current.right)
                 current.key, current.value = successor.key, successor.value
-                current.right, deleted = self.eliminar_recursivo(successor.key, current.right)  # type: ignore[attr-defined]
+                current.right, deleted = self._delete(successor.key, current.right)
 
         self._update_height(current)
-        return self._rebalance(self._balance_factor(current), current)
+        return self._rebalance(self._balance_factor(current), current), deleted
 
     @staticmethod
     def _min_node(current: AVLNode) -> AVLNode:

@@ -151,3 +151,33 @@ def test_bst_delete_everything_in_random_order():
         remaining.discard(k)
         assert t.inorder() == sorted(remaining)
     assert t.root is None
+
+
+def test_avl_delete_keeps_balance():
+    t = build_avl(range(1, 16))
+    assert t.delete(8) is True        # root with two children
+    assert t.delete(1) is True        # leaf
+    assert t.delete(99) is False      # missing
+    check_avl_invariants(t.root)
+    assert t.inorder() == [k for k in range(1, 16) if k not in (1, 8)]
+
+
+def test_avl_delete_everything_in_random_order():
+    rng = random.Random(3)
+    keys = rng.sample(range(5000), 300)
+    t = build_avl(keys)
+    remaining = set(keys)
+    for k in rng.sample(keys, len(keys)):
+        assert t.delete(k) is True
+        remaining.discard(k)
+        check_avl_invariants(t.root)
+        assert t.inorder() == sorted(remaining)
+    assert t.is_empty()
+
+
+def test_avl_duplicate_insert_is_ignored():
+    t = build_avl([10, 20, 30])
+    t.insert(20)
+    t.insert(10)
+    assert t.inorder() == [10, 20, 30]
+    check_avl_invariants(t.root)
