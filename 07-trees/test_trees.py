@@ -128,3 +128,26 @@ def test_avl_empty():
     assert t.size() == 0
     assert t.inorder() == []
     assert not t.contains(5)
+
+
+# ------------------------------------------------- regression tests (fixes)
+def test_bst_delete_node_with_two_children():
+    t = build_bst([50, 30, 70, 20, 40, 60, 80])
+    t.delete(30)                      # two children: successor is 40
+    assert t.inorder() == [20, 40, 50, 60, 70, 80]
+    assert t.search(40).value == "v40"   # payload moved with the key
+    t.delete(50)                      # the root, two children
+    assert t.inorder() == [20, 40, 60, 70, 80]
+    assert t.root.key == 60 and t.root.value == "v60"
+
+
+def test_bst_delete_everything_in_random_order():
+    rng = random.Random(1)
+    keys = rng.sample(range(1000), 200)
+    t = build_bst(keys)
+    remaining = set(keys)
+    for k in rng.sample(keys, len(keys)):
+        t.delete(k)
+        remaining.discard(k)
+        assert t.inorder() == sorted(remaining)
+    assert t.root is None

@@ -77,8 +77,8 @@ class BST:
             # Two children: copy the in-order successor (minimum of the
             # right subtree) here, then delete it from the right subtree.
             successor = self._min_node(current.right)
-            current.id = successor.id  # type: ignore[attr-defined]
-            current.right = self._delete(current.right, successor.id)  # type: ignore[attr-defined]
+            current.key, current.value = successor.key, successor.value
+            current.right = self._delete(current.right, successor.key)
         return current
 
     @staticmethod
