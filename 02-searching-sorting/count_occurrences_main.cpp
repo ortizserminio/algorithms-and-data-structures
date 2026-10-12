@@ -33,12 +33,13 @@ int main() {
 
     std::cout << "Worst-case vector:" << std::endl;
     print_vector(worst, n);
-    std::cout << "Worst-case vector:" << std::endl;
-    print_vector(worst, n);
+    std::cout << "Best-case vector:" << std::endl;
+    print_vector(best, n);
     std::cout << "Average-case vector:" << std::endl;
     print_vector(any, n);
 
-    std::cout << "WORST CASE - occurrences: " << n << std::endl;
+    std::cout << "WORST CASE - occurrences: "
+              << count_occurrences(worst, n, x) << std::endl;
     std::cout << "BEST CASE - occurrences: " << count_occurrences(best, n, x)
               << std::endl;
     std::cout << "AVERAGE CASE - occurrences: "
